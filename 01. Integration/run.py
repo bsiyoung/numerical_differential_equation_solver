@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Integration Interval
 int_interval = [0, 20]
+
+# Integration Step Size
 dx = 1e-3
 
 # How many multidimensional integrals
