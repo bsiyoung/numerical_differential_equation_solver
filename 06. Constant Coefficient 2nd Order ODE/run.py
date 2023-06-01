@@ -4,7 +4,7 @@ import numpy as np
 # 1st ODE Form
 # (D^2y)(x) + c1 * (Dy)(x) + c0 * y(x) = r(x)
 
-interval = [0, 15 ]
+interval = [0, 15]
 dx = 1e-6
 save_gap = 100
 

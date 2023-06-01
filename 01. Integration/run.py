@@ -2,47 +2,47 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Integration Interval
-int_interval = [0, 10]
+interval = [0, 10]
 
 # Integration Step Size
-dx = 1e-5
+h = 1e-5
 
 # How many multidimensional integrals
 # Get up to (n_integrals)th dimension integral
 n_integrals = 2
-
-# To save memory space
-# Memory usage = Total data size / save_gap
-save_gap = 1000
 
 
 def f(x):
     return np.sin(x)
 
 
+# To save memory space
+# Memory usage = Total data size / save_gap
+save_step = 1000
+
+
 # ======================================================================
 
-def integrate(x, y, res_y0=0):
+def integrate(dx, y, res_y0=0):
     res_y = [res_y0]
     for i in range(1, len(y)):
-        h = x[i] - x[i-1]
-        res_y.append(res_y[-1] + (y[i] + y[i-1]) * h / 2)
+        res_y.append(res_y[-1] + (y[i] + y[i - 1]) * dx / 2)
 
     # float, double, longdouble
     return np.array(res_y, dtype=np.double)
 
 
 # Domain of x
-x_domain = np.arange(int_interval[0], int_interval[1], dx)
+x_domain = np.arange(interval[0], interval[1], h)
 
 # integrals[n] = n dimensional integral
 integrals = [f(x_domain)]
 for int_dim in range(1, n_integrals + 1):
-    integrals.append(integrate(x_domain, integrals[-1]))
-    integrals[-2] = integrals[-2][::save_gap]
+    integrals.append(integrate(h, integrals[-1]))
+    integrals[-2] = integrals[-2][::save_step]
     print("\r{}/{}".format(int_dim, n_integrals), end='')
-x_domain = x_domain[::save_gap]
-integrals[-1] = integrals[-1][::save_gap]
+x_domain = x_domain[::save_step]
+integrals[-1] = integrals[-1][::save_step]
 
 # Plot data
 plt.figure(figsize=(10, 4))
